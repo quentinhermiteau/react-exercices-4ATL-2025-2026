@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
+
 export default function App() {
-  const count = 0;
+  const [count, setCount] = useState(0);
 
   return (
     <main>
@@ -10,8 +12,12 @@ export default function App() {
       </div>
       <span>{count}</span>
       <div>
-        <button>-</button>
-        <button>+</button>
+        <button type="button" onClick={() => setCount(count - 1)}>
+          -
+        </button>
+        <button type="button" onClick={() => setCount(count + 1)}>
+          +
+        </button>
       </div>
     </main>
   );
