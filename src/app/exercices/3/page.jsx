@@ -7,27 +7,28 @@ const USER_DATA = {
   img: "https://avatars.githubusercontent.com/u/6645985",
   handle: "benadam11",
 };
-function Avatar() {
-  return <img src={``} alt={``} />;
+
+function Avatar({ src, alt }) {
+  return <img src={src} alt={alt} />;
 }
 
-function Name() {
-  return <h4>name</h4>;
+function Name({ name }) {
+  return <h4>{name}</h4>;
 }
 
-function Handle() {
-  return <p>@HANDLE</p>;
+function Handle({ handle }) {
+  return <p>@{handle}</p>;
 }
 
-function Badge() {
+function Badge({ user, style, addFriend, children }) {
   return (
-    <div style="">
-      <Avatar />
+    <div style={style}>
+      <Avatar src={user.img} alt={user.name} />
       <div>
-        <Name />
-        <Handle />
-        {/* Ajouter le children ici */}
-        <button onClick={() => {}}>Add Friend</button>
+        <Name name={user.name} />
+        <Handle handle={user.handle} />
+        {children}
+        <button onClick={addFriend}>Add Friend</button>
       </div>
     </div>
   );
