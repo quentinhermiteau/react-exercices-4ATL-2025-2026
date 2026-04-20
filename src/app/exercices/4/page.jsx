@@ -1,6 +1,12 @@
 "use client";
 
 export default function Exo4() {
+  const handleChange = (event) => {
+    if (event.target.value.length > 10) {
+      alert("Character limit exceeded");
+    }
+  };
+
   return (
     <>
       <div id="notice">
@@ -15,7 +21,7 @@ export default function Exo4() {
       </div>
       <section>
         <h1>Character Limit</h1>
-        <input placeholder="Enter some text" />
+        <input placeholder="Enter some text" onChange={handleChange} />
       </section>
     </>
   );
