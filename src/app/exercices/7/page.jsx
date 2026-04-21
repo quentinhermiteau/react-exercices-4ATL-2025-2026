@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 const initialFormData = {
   name: "",
   email: "",
@@ -8,15 +10,31 @@ const initialFormData = {
   zipcode: "",
 };
 
+const whitelist = Object.keys(initialFormData);
+
 export default function MultiStepForm() {
-  const currentStep = 1;
-  const formData = initialFormData;
+  const [currentStep, setCurrentStep] = useState(1);
+  const [formData, setFormData] = useState(initialFormData);
 
-  const handleChange = () => {};
+  const handleChange = (e) => {
+    // const object = {
+    //   titi: "",
+    // };
 
-  const handleNextStep = () => {};
+    // const key = "titi";
+    // const value = "test";
 
-  const handlePrevStep = () => {};
+    // object[key] = value; // => object.titi = value
+
+    const key = e.target.name;
+    if (whitelist.includes(key)) {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
+  };
+
+  const handleNextStep = () => setCurrentStep(currentStep + 1);
+
+  const handlePrevStep = () => setCurrentStep(currentStep - 1);
 
   const handleSubmit = () => {
     alert("Thank you for your submission");
