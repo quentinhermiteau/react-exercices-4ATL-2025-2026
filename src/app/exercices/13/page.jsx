@@ -1,5 +1,7 @@
 "use client";
 
+import { useReducer } from "react";
+
 const initialState = {
   past: [],
   count: 0,
@@ -9,16 +11,56 @@ const initialState = {
 function reducer(state, action) {
   const { past, count, future } = state;
 
-  return state;
+  switch (action) {
+    // [] 0 []
+    // [0] 1 []
+    // [0, 1] 2 []
+    case "increment":
+      return {
+        past: [...past, count],
+        count: count + 1,
+        future,
+      };
+    case "decrement":
+      // [0, 1] 2 []
+      // [0, 1, 2] 1 []
+      // [0, 1, 2, 1] 0 []
+      return {
+        past: [...past, count],
+        count: count - 1,
+        future,
+      };
+    // [0, 1] 2 []
+    // [0] 1 [2]
+    case "undo":
+      const undoCount = past.at(-1);
+
+      return {
+        past: past.slice(0, -1),
+        count: undoCount,
+        future: [...future, count],
+      };
+    // [0] 1 [2]
+    // [0, 1] 2 [0]
+    case "redo":
+      const redoCount = future.at(-1);
+      return {
+        past: [...past, count],
+        count: redoCount,
+        future: future.slice(0, -1),
+      };
+  }
 }
 
 export default function CounterWithUndoRedo() {
-  const state = initialState;
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const handleIncrement = () => {};
-  const handleDecrement = () => {};
-  const handleUndo = () => {};
-  const handleRedo = () => {};
+  console.log(state);
+
+  const handleIncrement = () => dispatch("increment");
+  const handleDecrement = () => dispatch("decrement");
+  const handleUndo = () => dispatch("undo");
+  const handleRedo = () => dispatch("redo");
 
   return (
     <div>
