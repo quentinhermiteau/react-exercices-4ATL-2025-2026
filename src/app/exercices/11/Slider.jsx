@@ -1,10 +1,6 @@
 "use client";
 
-import { useState } from "react";
-
-export default function Slider({ min, max, onChange }) {
-  const [value, setValue] = useState(1);
-
+export default function Slider({ min, max, value, onChange }) {
   return (
     <div className="range">
       <input
@@ -16,7 +12,6 @@ export default function Slider({ min, max, onChange }) {
         onChange={(e) => {
           const value = Number(e.target.value);
           onChange(value);
-          setValue(value);
         }}
       />
       <div>{value}</div>
